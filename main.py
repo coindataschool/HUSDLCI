@@ -82,16 +82,19 @@ fig.update_layout(paper_bgcolor="#0E1117", plot_bgcolor='#0E1117',
 )
 # render figure
 st.plotly_chart(fig, use_container_width=True)
-st.caption('USD Liquidity (white curve) goes up => Fed (net) prints; goes down => Fed (net) tapers.')
-st.markdown("### The [Hayes USD Liquidity Conditions Index](https://cryptohayes.medium.com/teach-me-daddy-33e7a66dfe76) is a tool devised by King Arthur. Remember his sword is [Excalibur](https://entrepreneurshandbook.co/excalibur-44b2822dc4e6).")
+st.markdown('- USD Liquidity (white curve) goes up => Fed (net) prints; goes down => Fed (net) tapers.')
+st.markdown("- Data are sourced from [FRED](https://fred.stlouisfed.org/) and Yahoo Finance. The above chart automatically updates when new data become available.")
+st.markdown("- Hayes USD Liquidity Conditions Index = The Fed's Balance Sheet — NY Fed Total Amount of Accepted Reverse Repo Bids — US Treasury General Account Balance Held at NY Fed.")
+
+st.markdown("#### The [Hayes USD Liquidity Conditions Index](https://cryptohayes.medium.com/teach-me-daddy-33e7a66dfe76) is a tool devised by King Arthur. Remember his sword is [Excalibur](https://entrepreneurshandbook.co/excalibur-44b2822dc4e6).")
 
 # about
 st.markdown("""---""")
 st.subheader('About')
 st.markdown("- Check out my Dune dashboards: [@coindataschool](https://dune.com/coindataschool)")
 st.markdown("- Follow me on twitter: [@coindataschool](https://twitter.com/coindataschool)")
-st.markdown("- Buy me a coffee with eth: `0x783c5546c863f65481bd05fd0e3fd5f26724604e`")
-st.markdown("- [Tip me sat](https://tippin.me/@coindataschool)")
+st.markdown("- Buy me a coffee with eth: `0x783c5546c863f65481bd05fd0e3fd5f26724604e`.")
+st.markdown("- [Tip me sat](https://tippin.me/@coindataschool).")
  
 
 
