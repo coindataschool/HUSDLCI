@@ -14,7 +14,7 @@ st.set_page_config(page_title='hayes-usd-liquidity-conditions-index',
 # access fred
 # import os
 # fred = Fred(api_key = os.environ.get('FRED_API_KEY'))
-# fred = Fred(api_key = st.secrets["FRED_API_KEY"])
+fred = Fred(api_key = st.secrets["FRED_API_KEY"])
 
 # download data from fred 
 #
