@@ -14,7 +14,7 @@ st.set_page_config(page_title='hayes-usd-liquidity-conditions-index',
 # access fred
 # import os
 # fred = Fred(api_key = os.environ.get('FRED_API_KEY'))
-fred = Fred(api_key = st.secrets["FRED_API_KEY"])
+# fred = Fred(api_key = st.secrets["FRED_API_KEY"])
 
 # download data from fred 
 #
@@ -25,7 +25,7 @@ rrp = fred.get_series('RRPONTTLD')
 # Treasury's General Account Balance Held at NY Fed: raw values are in billions of dollars
 tga = fred.get_series('WTREGEN')
 
-# make user input
+# TODO: make user input
 start_date = '2021-12-01'
 end_date = dt.datetime.now().strftime('%Y-%m-%d')
 
@@ -45,7 +45,11 @@ btc.name = 'BTCUSD'
 df = pd.concat([HUSDLCI, btc], axis=1).dropna()
 # st.dataframe(df.head())
 
-# --- plot --- #
+# calc 30-day rolling correlations
+rolling_corr_30d = df.HUSDLCI.rolling(30).corr(df.BTCUSD).dropna()
+
+
+# --- plot HUSDLCI and BTCUSD --- #
 
 fig = make_subplots(specs=[[{"secondary_y": True}]]) # mk figure with 2 Y-axis
 
@@ -85,8 +89,40 @@ st.plotly_chart(fig, use_container_width=True)
 st.markdown('- USD Liquidity (white curve) goes up => Fed (net) prints; goes down => Fed (net) tapers.')
 st.markdown("- Data are sourced from [FRED](https://fred.stlouisfed.org/) and Yahoo Finance. The above chart automatically updates when new data become available.")
 st.markdown("- Hayes USD Liquidity Conditions Index = The Fed's Balance Sheet — NY Fed Total Amount of Accepted Reverse Repo Bids — US Treasury General Account Balance Held at NY Fed.")
-
 st.markdown("#### The [Hayes USD Liquidity Conditions Index](https://cryptohayes.medium.com/teach-me-daddy-33e7a66dfe76) is a tool devised by King Arthur. Remember his sword is [Excalibur](https://entrepreneurshandbook.co/excalibur-44b2822dc4e6).")
+
+
+# --- plot their 30-day rolling correlations --- #
+
+fig2 = make_subplots() 
+
+# y-axis
+fig2.add_trace( 
+    go.Scatter(x=rolling_corr_30d.index, y=rolling_corr_30d, mode='lines', 
+               name='30-day rolling correlation', line=dict(color='#a1caf1', width=2))
+)
+fig2.update_yaxes(title_text="Correlation", showgrid=False, linewidth=2)
+
+# add dashed line at zero
+fig2.add_hline(y=0, line_width=0.5, line_dash="dash",)
+
+# format x-axis
+fig2.update_xaxes(title_text=None, showgrid=False, linewidth=2)
+
+# format layout
+fig2.update_layout(paper_bgcolor="#0E1117", plot_bgcolor='#0E1117', 
+    yaxis_tickprefix = '', yaxis_tickformat = ',.2f', 
+    # legend=dict(orientation="h"),
+    title_text="30-day Rolling Correlation between BTC Price and Hayes USD Liquidity Conditions Index",
+    font=dict(size=18),
+    autosize=False,
+    width=1200,
+    height=600,
+)
+# render figure
+st.plotly_chart(fig2, use_container_width=True)
+
+
 
 # about
 st.markdown("""---""")
@@ -95,7 +131,3 @@ st.markdown("- Check out my Dune dashboards: [@coindataschool](https://dune.com/
 st.markdown("- Follow me on twitter: [@coindataschool](https://twitter.com/coindataschool)")
 st.markdown("- Buy me a coffee with eth: `0x783c5546c863f65481bd05fd0e3fd5f26724604e`.")
 st.markdown("- [Tip me sat](https://tippin.me/@coindataschool).")
- 
-
-
-
