@@ -131,5 +131,5 @@ st.markdown("- Subscribe to my [newsletter](https://coindataschool.substack.com/
 st.markdown("- Follow me on twitter: [@coindataschool](https://twitter.com/coindataschool)")
 st.markdown("- Follow me on github: [@coindataschool](https://github.com/coindataschool)")
 st.subheader('Support my work')
-st.markdown("- Buy me a coffee with ETH: `0x783c5546c863f65481bd05fd0e3fd5f26724604e`.")
-st.markdown("- [Tip me sat](https://tippin.me/@coindataschool).")
+st.markdown("- Buy me a coffee with ETH: `0x783c5546c863f65481bd05fd0e3fd5f26724604e`")
+st.markdown("- [Tip me sat](https://tippin.me/@coindataschool)")
