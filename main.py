@@ -1,7 +1,7 @@
 import pandas as pd
-import pandas_datareader.data as reader
+import yfinance as yf
 from fredapi import Fred
-import datetime as dt
+from datetime import datetime
 import streamlit as st
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
@@ -12,9 +12,9 @@ st.set_page_config(page_title='hayes-usd-liquidity-conditions-index',
     layout='wide', page_icon='🔔') 
 
 # access fred
-# import os
-# fred = Fred(api_key = os.environ.get('FRED_API_KEY'))
-fred = Fred(api_key = st.secrets["FRED_API_KEY"])
+import os
+fred = Fred(api_key = os.environ.get('FRED_API_KEY'))
+# fred = Fred(api_key = st.secrets["FRED_API_KEY"])
 
 # download data from fred 
 #
@@ -27,7 +27,7 @@ tga = fred.get_series('WTREGEN')
 
 # TODO: make user input
 start_date = '2021-12-01'
-end_date = dt.datetime.now().strftime('%Y-%m-%d')
+end_date = datetime.now().strftime('%Y-%m-%d')
 
 # construct the Hayes USD Liquidity Conditions Index
 x = (assets - tga).loc[start_date:end_date].dropna()
@@ -37,8 +37,7 @@ HUSDLCI = HUSDLCI / 1e3      # trillions of dollars
 HUSDLCI.name = 'HUSDLCI'
 
 # download BTC price data from yahoo 
-
-btc = reader.get_data_yahoo('BTC-USD', start_date, end_date)['Close']
+btc = yf.download('BTC-USD', start_date, end_date)['Close']
 btc.name = 'BTCUSD'
 
 # join data side by side
