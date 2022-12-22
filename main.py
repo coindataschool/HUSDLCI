@@ -11,10 +11,10 @@ from plotly.subplots import make_subplots
 st.set_page_config(page_title='hayes-usd-liquidity-conditions-index', 
     layout='wide', page_icon='🔔') 
 
-# access fred
-import os
-fred = Fred(api_key = os.environ.get('FRED_API_KEY'))
-# fred = Fred(api_key = st.secrets["FRED_API_KEY"])
+# # access fred
+# import os
+# fred = Fred(api_key = os.environ.get('FRED_API_KEY'))
+fred = Fred(api_key = st.secrets["FRED_API_KEY"])
 
 # download data from fred 
 #
